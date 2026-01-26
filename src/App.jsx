@@ -16,6 +16,7 @@ import ColdDrinks from "./components/ColdDrinks";
 import Snacks from "./components/Snacks";
 import IceCream from "./components/IceCream";
 import Rating from "./components/Rating"; 
+import Admin from "./components/Admin"; // <-- import Admin page
 
 const App = () => {
   useEffect(() => {
@@ -44,9 +45,10 @@ const App = () => {
             <Route path="/menu/icecream" element={<IceCream />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/reservation" element={<Reservation />} />
-
-          
             <Route path="/rating" element={<Rating />} />
+
+            {/* Admin Route */}
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </main>
         <Footer />
