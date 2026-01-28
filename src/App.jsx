@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import AdminSubscribers from "./components/Admin";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+
 
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
@@ -48,7 +50,8 @@ const App = () => {
             <Route path="/rating" element={<Rating />} />
 
             {/* Admin Route */}
-            <Route path="/admin" element={<Admin />} />
+           <Route path="/admin" element={<Admin />} />
+        <Route path="/admin/subscribers" element={<AdminSubscribers />} />
           </Routes>
         </main>
         <Footer />
