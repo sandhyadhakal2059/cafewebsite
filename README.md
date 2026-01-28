@@ -65,7 +65,7 @@ Backend: Rajaram Sharma
 ☕ Sip, Crunch, Smile — All in One Place
 Sakhe Cafe
 ## Home Page
-![Home](home.png)
+![Home](https://github.com/sandhyadhakal2059/cafewebsite/blob/115236b3341952d347339682303c82c5b9fe0949/home.png)
 
 ## About Page
 ![About](about.png)
