@@ -1,16 +1,66 @@
-# React + Vite
+# ☕ Sakhe Cafe Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern and responsive **cafe website** designed for a smooth user experience. Users can explore the menu, reserve tables, send messages, subscribe for updates, and leave ratings — all in one place.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## React Compiler
+### 👤 User Side
+- Attractive landing page with smooth animations
+- Browse cafe menu (Coffee, Tea, Snacks, Cold Drinks)
+- Table reservation with date & time
+- Contact form (stored in database)
+- Newsletter subscription
+- Rating & review system
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🛠 Admin Panel
+- View subscriber list
+- View table reservations
+- View contact messages
+- Clean and user-friendly dashboard
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🧰 Tech Stack
+
+### Frontend
+- React.js
+- Tailwind CSS
+- Axios
+- React Router
+- AOS (Animate On Scroll)
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+
+---
+
+## 📂 Project Structure
+
+```bash
+cafewwebsite/
+├── backend/
+├── src/
+├── public/
+├── README.md
+└── package.json
+🚀 Setup
+git clone https://github.com/sandhyadhakal2059/cafewwebsite.git
+cd cafewwebsite
+npm install
+npm run dev
+Backend runs with:
+cd backend
+npm install
+node index.js
+👩‍💻 Contributors
+
+Frontend: Sandhya Dhakal
+
+Backend: Rajaram Sharma
+
+☕ Sip, Crunch, Smile — All in One Place
+Sakhe Cafe
