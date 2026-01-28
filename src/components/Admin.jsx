@@ -1,131 +1,133 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-// Component for adding a new menu item
-function AddMenuItem({ onAdd }) {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [img, setImg] = useState("");
+const AdminPanel = () => {
+  const [reservations, setReservations] = useState([]);
+  const [contacts, setContacts] = useState([]);
+  const [subscriberCount, setSubscriberCount] = useState(0);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!name || !price || !img) return alert("Please fill all fields");
-    onAdd({ name, price, img });
-    setName("");
-    setPrice("");
-    setImg("");
+  useEffect(() => {
+    loadReservations();
+    loadContacts();
+    loadSubscribers();
+
+    // 🔄 refresh subscriber count every 5 seconds
+    const interval = setInterval(loadSubscribers, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const loadReservations = () => {
+    axios
+      .get("http://localhost:5000/api/admin")
+      .then(res => setReservations(res.data))
+      .catch(() => alert("Failed to load reservations"));
+  };
+
+  const loadContacts = () => {
+    axios
+      .get("http://localhost:5000/api/contact/admin")
+      .then(res => setContacts(res.data))
+      .catch(() => alert("Failed to load contacts"));
+  };
+
+  const loadSubscribers = () => {
+    axios
+      .get("http://localhost:5000/api/subscribers/count")
+      .then(res => setSubscriberCount(res.data.total))
+      .catch(() => console.log("Failed to load subscribers"));
+  };
+
+  const unreserveTable = (tableNumber) => {
+    if (!window.confirm("Cancel reservation?")) return;
+
+    axios
+      .delete(`http://localhost:5000/api/admin/${tableNumber}`)
+      .then(loadReservations)
+      .catch(() => alert("Failed"));
+  };
+
+  const deleteContact = (id) => {
+    if (!window.confirm("Delete message?")) return;
+
+    axios
+      .delete(`http://localhost:5000/api/contact/admin/${id}`)
+      .then(loadContacts)
+      .catch(() => alert("Failed"));
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: "20px" }}>
-      <input
-        type="text"
-        placeholder="Item Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Price"
-        value={price}
-        onChange={(e) => setPrice(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Image URL"
-        value={img}
-        onChange={(e) => setImg(e.target.value)}
-      />
-      <button type="submit">Add Item</button>
-    </form>
-  );
-}
+    <div style={{ minHeight: "100vh", paddingTop: 120 }}>
+      <div style={{ maxWidth: 900, margin: "auto" }}>
+        <h2 style={{ textAlign: "center" }}>
+          ☕ Sakhe Cafe – Admin Dashboard
+        </h2>
 
-// Main Admin Component
-function Admin() {
-  const [menu, setMenu] = useState([]);
-  const [editingIndex, setEditingIndex] = useState(null);
-  const [editName, setEditName] = useState("");
-  const [editPrice, setEditPrice] = useState("");
-  const [editImg, setEditImg] = useState("");
+        {/* 🔢 LIVE SUBSCRIBER COUNT */}
+        <div
+          style={{
+            margin: "30px 0",
+            padding: 20,
+            borderRadius: 14,
+            background: "#ecfeff",
+            textAlign: "center",
+            fontSize: 20,
+            fontWeight: "bold"
+          }}
+        >
+          📧 Total Subscribers: {subscriberCount}
+        </div>
 
-  // Add new item
-  const addItem = (item) => {
-    setMenu([...menu, item]);
-  };
-
-  // Delete item
-  const deleteItem = (index) => {
-    const newMenu = menu.filter((_, i) => i !== index);
-    setMenu(newMenu);
-  };
-
-  // Start editing item
-  const startEdit = (index) => {
-    setEditingIndex(index);
-    setEditName(menu[index].name);
-    setEditPrice(menu[index].price);
-    setEditImg(menu[index].img);
-  };
-
-  // Save edited item
-  const saveEdit = (index) => {
-    const newMenu = [...menu];
-    newMenu[index] = { name: editName, price: editPrice, img: editImg };
-    setMenu(newMenu);
-    cancelEdit();
-  };
-
-  const cancelEdit = () => {
-    setEditingIndex(null);
-    setEditName("");
-    setEditPrice("");
-    setEditImg("");
-  };
-
-  return (
-    <div style={{ padding: "20px" }}>
-      <h1>Admin Dashboard</h1>
-
-      <h2>Add New Menu Item</h2>
-      <AddMenuItem onAdd={addItem} />
-
-      <h2>Menu List</h2>
-      <ul style={{ listStyle: "none", padding: 0 }}>
-        {menu.map((item, index) => (
-          <li key={index} style={{ marginBottom: "15px" }}>
-            {editingIndex === index ? (
+        {/* RESERVATIONS */}
+        <h3>📅 Reservations</h3>
+        {reservations.length === 0 ? (
+          <p>No reservations</p>
+        ) : (
+          reservations.map(r => (
+            <div key={r._id} style={cardStyle}>
               <div>
-                <input
-                  type="text"
-                  value={editName}
-                  onChange={(e) => setEditName(e.target.value)}
-                />
-                <input
-                  type="text"
-                  value={editPrice}
-                  onChange={(e) => setEditPrice(e.target.value)}
-                />
-                <input
-                  type="text"
-                  value={editImg}
-                  onChange={(e) => setEditImg(e.target.value)}
-                />
-                <button onClick={() => saveEdit(index)}>Save</button>
-                <button onClick={cancelEdit}>Cancel</button>
+                <b>Table {r.tableNumber}</b><br />
+                {r.name}<br />
+                {r.date} – {r.time}
               </div>
-            ) : (
+              <button onClick={() => unreserveTable(r.tableNumber)}>
+                Cancel
+              </button>
+            </div>
+          ))
+        )}
+
+        <hr style={{ margin: "40px 0" }} />
+
+        {/* CONTACTS */}
+        <h3>📩 Contact Messages</h3>
+        {contacts.length === 0 ? (
+          <p>No contact messages</p>
+        ) : (
+          contacts.map(c => (
+            <div key={c._id} style={cardStyle}>
               <div>
-                <strong>{item.name}</strong> - {item.price}{" "}
-                <img src={item.img} alt={item.name} width="50" />
-                <button onClick={() => startEdit(index)}>Edit</button>
-                <button onClick={() => deleteItem(index)}>Delete</button>
+                <b>{c.name}</b><br />
+                {c.email}<br />
+                {c.message}
               </div>
-            )}
-          </li>
-        ))}
-      </ul>
+              <button onClick={() => deleteContact(c._id)}>
+                Delete
+              </button>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
-}
+};
 
-export default Admin;
+const cardStyle = {
+  display: "flex",
+  justifyContent: "space-between",
+  padding: 16,
+  marginBottom: 12,
+  background: "#f9fafb",
+  borderRadius: 12
+};
+
+export default AdminPanel;

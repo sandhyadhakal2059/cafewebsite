@@ -1,17 +1,53 @@
-// src/components/Contact.jsx
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa";
 
 const Contact = () => {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("");
+
+    try {
+      setLoading(true);
+
+      await axios.post("http://localhost:5000/api/contact", form, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      setStatus("✅ Message sent successfully!");
+      setForm({ name: "", email: "", message: "" });
+    } catch (err) {
+      if (err.response?.data?.message) {
+        setStatus("❌ " + err.response.data.message);
+      } else {
+        setStatus("❌ Failed to send message");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 py-20 px-4">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
 
-        {/* Left: Contact Info */}
-        <div
-          data-aos="fade-right"
-          className="space-y-6"
-        >
+        {/* LEFT: CONTACT INFO */}
+        <div data-aos="fade-right" className="space-y-6">
           <h2 className="text-4xl font-bold text-gray-800">
             Get in Touch
           </h2>
@@ -38,7 +74,7 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* Social Icons */}
+          {/* SOCIAL ICONS */}
           <div className="flex space-x-4 pt-4">
             <a
               href="https://facebook.com"
@@ -69,7 +105,7 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* Right: Contact Form */}
+        {/* RIGHT: CONTACT FORM */}
         <div
           data-aos="fade-left"
           className="bg-white shadow-lg rounded-2xl p-8"
@@ -78,15 +114,30 @@ const Contact = () => {
             Send a Message
           </h3>
 
-          <form className="space-y-5">
+          {status && (
+            <p
+              className={`mb-4 text-center font-semibold ${
+                status.startsWith("✅")
+                  ? "text-green-600"
+                  : "text-red-600"
+              }`}
+            >
+              {status}
+            </p>
+          )}
+
+          <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
               <label className="block text-gray-700 mb-1">
                 Name
               </label>
               <input
-                type="text"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
                 placeholder="Your Name"
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-secondary"
+                required
               />
             </div>
 
@@ -95,9 +146,13 @@ const Contact = () => {
                 Email
               </label>
               <input
+                name="email"
                 type="email"
+                value={form.email}
+                onChange={handleChange}
                 placeholder="you@example.com"
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-secondary"
+                required
               />
             </div>
 
@@ -106,17 +161,26 @@ const Contact = () => {
                 Message
               </label>
               <textarea
+                name="message"
+                value={form.message}
+                onChange={handleChange}
                 rows="5"
                 placeholder="Write your message..."
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
-              ></textarea>
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-secondary"
+                required
+              />
             </div>
 
             <button
               type="submit"
-              className="w-full bg-secondary text-white py-3 rounded-lg font-semibold hover:bg-amber-700 transition"
+              disabled={loading}
+              className={`w-full py-3 rounded-lg font-semibold text-white transition ${
+                loading
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-secondary hover:opacity-90"
+              }`}
             >
-              Send Message
+              {loading ? "Sending..." : "Send Message"}
             </button>
           </form>
         </div>
