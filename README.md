@@ -1,89 +1,131 @@
-# ☕ Sakhe Cafe Website
+☕ Sakhe Cafe Website
 
-A modern and responsive **cafe website** designed for a smooth user experience. Users can explore the menu, reserve tables, send messages, subscribe for updates, and leave ratings — all in one place.
+Modern Full-Stack Cafe Management & Reservation System
 
----
+A responsive full-stack cafe website built using React.js, Node.js, and MongoDB that allows customers to browse the menu, reserve tables, send messages, subscribe to newsletters, and leave ratings — all managed through a clean admin dashboard.
 
-## ✨ Features
+🚀 Features
 
-### 👤 User Side
-- Attractive landing page with smooth animations
-- Browse cafe menu (Coffee, Tea, Snacks, Cold Drinks)
-- Table reservation with date & time
-- Contact form (stored in database)
-- Newsletter subscription
-- Rating & review system
+✅ Modern animated landing page
 
-### 🛠 Admin Panel
-- View subscriber list
-- View table reservations
-- View contact messages
-- Clean and user-friendly dashboard
+✅ Browse categorized menu (Coffee, Tea, Snacks, Cold Drinks)
 
----
+✅ Table reservation with date & time selection
 
-## 🧰 Tech Stack
+✅ Contact form with database storage
 
-### Frontend
-- React.js
-- Tailwind CSS
-- Axios
-- React Router
-- AOS (Animate On Scroll)
+✅ Newsletter subscription system
 
-### Backend
-- Node.js
-- Express.js
-- MongoDB
+✅ Rating & review system
 
----
+✅ Admin dashboard for management
 
-## 📂 Project Structure
+✅ RESTful API (JSON-based communication)
 
-```bash
+✅ Fully responsive (Mobile & Desktop)
+
+🛠️ System Requirements
+Component	Description
+Node.js	JavaScript runtime environment
+MongoDB	NoSQL database
+NPM	Package manager
+Browser	Chrome / Edge / Firefox
+🧪 Core Functional Modules
+Module	Description
+Reservation System	Book tables with date & time
+Contact System	Store user messages in database
+Subscription Module	Save newsletter subscribers
+Rating System	Customer feedback & reviews
+Admin Dashboard	Manage all incoming data
+🌐 Software Stack
+Layer	Tech Used
+Frontend	React.js, Tailwind CSS
+Routing	React Router
+HTTP Client	Axios
+Animation	AOS (Animate On Scroll)
+Backend	Node.js, Express.js
+Database	MongoDB
+API Format	REST (JSON + HTTP)
+📦 Folder Structure
 cafewwebsite/
+│
 ├── backend/
+│   ├── models/
+│   ├── routes/
+│   ├── controllers/
+│   └── index.js
+│
 ├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── assets/
+│   └── App.jsx
+│
 ├── public/
-├── README.md
-└── package.json
-🚀 Setup
+├── package.json
+└── README.md
+🧑‍💻 Frontend Setup
+
+Clone the repository
+
+Install dependencies
+
 git clone https://github.com/sandhyadhakal2059/cafewwebsite.git
 cd cafewwebsite
 npm install
 npm run dev
-Backend runs with:
+🖥️ Backend Setup
+
+Navigate to backend folder
+
 cd backend
 npm install
 node index.js
-👩‍💻 Contributors
+
+Ensure MongoDB is running locally
+
+Backend typically runs on:
+
+http://localhost:5000
+🔌 API Endpoints
+Method	Endpoint	Description
+POST	/api/reservations	Create table reservation
+POST	/api/contact	Submit contact message
+POST	/api/subscribe	Subscribe to newsletter
+GET	/api/reservations	Get all reservations (Admin)
+GET	/api/messages	Get contact messages
+GET	/api/subscribers	Get subscriber list
+🖥️ Live Website Features
+
+Explore cafe menu
+
+Reserve tables instantly
+
+Send inquiries
+
+Subscribe for updates
+
+Leave ratings
+
+Admin monitors all activity
+
+💡 Future Enhancements
+
+Online payment integration
+
+Order food online system
+
+Reservation approval workflow
+
+Sales analytics dashboard
+
+Role-based admin authentication
+
+👨‍💻 Developed By
 
 Frontend: Sandhya Dhakal
 
 Backend: Rajaram Sharma
 
-☕ Sip, Crunch, Smile — All in One Place
-Sakhe Cafe
-![HOME PAGE]
-
-
-<img width="1883" height="911" alt="home" src="https://github.com/user-attachments/assets/35a9654b-00bd-4bad-adf7-e85b3522f2b5" />
-
-
-
-![About]
-
-<img width="1866" height="907" alt="about" src="https://github.com/user-attachments/assets/e0903923-f901-4653-b28f-695ad737f896" />
-
-![Menu]
-<img width="1871" height="911" alt="menu" src="https://github.com/user-attachments/assets/8584efe2-684f-4567-bd3b-db9d04cd6233" />
-
-
-
-![Reservation]
-<img width="1880" height="911" alt="reservation" src="https://github.com/user-attachments/assets/76f53887-f2d4-4734-9143-2e123fd8e2b0" />
-
-![Contact]
-<img width="1875" height="903" alt="contact" src="https://github.com/user-attachments/assets/a50ecfbf-4de6-43ed-8695-f43204aa774e" />
-
+📸 Preview
 
