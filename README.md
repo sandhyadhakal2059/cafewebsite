@@ -128,4 +128,28 @@ Frontend: Sandhya Dhakal
 Backend: Rajaram Sharma
 
 📸 Preview
+![Home pagr]
+<img width="1883" height="911" alt="home" src="https://github.com/user-attachments/assets/0c160223-d404-47c2-9ac5-cd63ad40ddf3" />
+
+![About page]
+
+
+<img width="1866" height="907" alt="about" src="https://github.com/user-attachments/assets/f868a428-7d2f-4f22-9d99-2a76c41ca549" />
+
+
+![Menu page]
+
+<img width="1871" height="911" alt="menu" src="https://github.com/user-attachments/assets/e321df4f-a569-4232-ab7c-bb4d5af8cb0d" />
+
+![Reservation page]
+
+
+<img width="1880" height="911" alt="reservation" src="https://github.com/user-attachments/assets/cf812db2-adb6-4990-913d-6ec96afc5455" />
+
+
+![contact page]
+
+<img width="1875" height="903" alt="contact" src="https://github.com/user-attachments/assets/9bd98d32-ad37-4201-a3a9-4bbefc9d5dbb" />
+
+
 
